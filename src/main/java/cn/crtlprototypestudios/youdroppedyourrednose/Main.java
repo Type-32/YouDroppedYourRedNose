@@ -28,7 +28,7 @@ public class Main
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
-        ModSounds.registerSounds();
+//        ModSounds.registerSounds();
     }
 
     @EventHandler

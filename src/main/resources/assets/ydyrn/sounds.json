@@ -1,12 +1,37 @@
 {
   "surprise_disc_music": {
     "category": "disc",
-    "subtitle": "ydyrn.disc.rickroll",
+    "subtitle": "ydyrn.sounds.disc.rickroll",
     "sounds": [{"name": "ydyrn:discs/rickroll", "stream": true}]
   },
-  "mamba_disc_music": {
-    "category": "ambient",
-    "subtitle": "ydyrn.ambient.seeyouagain",
-    "sounds": [{"name": "ydyrn:ambient/seeyouagain", "stream": true}]
+  "kobe_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.seeyouagain",
+    "sounds": [{"name": "ydyrn:discs/seeyouagain", "stream": true}]
+  },
+  "loose_ass_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.lonely_rock",
+    "sounds": [{"name": "ydyrn:discs/lonely_rock", "stream": true}]
+  },
+  "mdm_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.ma_dong_mei",
+    "sounds": [{"name": "ydyrn:discs/ma_dong_mei", "stream": true}]
+  },
+  "numb_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.numb",
+    "sounds": [{"name": "ydyrn:discs/numb", "stream": true}]
+  },
+  "telkom_indonesia_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.paket_phoenix",
+    "sounds": [{"name": "ydyrn:discs/paket_phoenix", "stream": true}]
+  },
+  "baby_bus_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.sounds.disc.baby_bus",
+    "sounds": [{"name": "ydyrn:discs/baby_bus", "stream": true}]
   }
 }

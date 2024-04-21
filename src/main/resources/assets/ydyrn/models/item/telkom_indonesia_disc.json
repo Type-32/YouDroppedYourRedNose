@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ydyrn:items/telkom_indonesia_disc"
+  }
+}
