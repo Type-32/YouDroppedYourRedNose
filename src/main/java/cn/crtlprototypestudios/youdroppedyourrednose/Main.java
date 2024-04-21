@@ -33,7 +33,5 @@ public class Main
     {
         // some example code
         logger.info("[{}] Initialization", Reference.NAME);
-
-        ModItems.register(ForgeRegistries.ITEMS);
     }
 }

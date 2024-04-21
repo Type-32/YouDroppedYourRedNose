@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
-  "teactures": {
+  "textures": {
     "layer0": "ydyrn:items/surprise_disc"
   }
 }
