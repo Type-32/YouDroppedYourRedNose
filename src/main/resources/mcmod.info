@@ -1,9 +1,9 @@
 [
   {
-    "modid": "youdroppedyourrednose",
+    "modid": "ydyrn",
     "name": "Your Dropped Your Red Nose",
     "description": "Mod for SAMC",
-    "version": "0.1.0-alpha",
+    "version": "${mod_version}",
     "mcversion": "1.12.2",
     "url": "https://github.com/Type-32/YouDroppedYourRedNose",
     "updateUrl": "https://github.com/Type-32/YouDroppedYourRedNose/releases",
