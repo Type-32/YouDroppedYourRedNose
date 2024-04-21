@@ -1,0 +1,16 @@
+[
+{
+  "modid": "cn.crtlprototypestudios.youdroppedyourrednose",
+  "name": "Your Dropped Your Red Nose",
+  "description": "Mod for SAMC",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Type-32/YouDroppedYourRedNose",
+  "updateUrl": "",
+  "authorList": ["ExampleDude"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
