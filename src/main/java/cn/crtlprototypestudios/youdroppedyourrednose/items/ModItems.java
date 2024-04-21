@@ -19,5 +19,5 @@ public class ModItems {
     public static final Item NUMB_DISC = new ItemRecordBase("numb_disc", ModSounds.RECORD_NUMB, CreativeTabs.MISC);
     public static final Item BBBUS_DISC = new ItemRecordBase("bbbus_disc", ModSounds.RECORD_BABY_BUS, CreativeTabs.MISC);
     public static final Item MDM_DISC = new ItemRecordBase("mdm_disc", ModSounds.RECORD_MA_DONG_MEI, CreativeTabs.MISC);
-    public static final Item TELKOM_INDONESIA_DISC = new ItemRecordBase("telkom_indonesia", ModSounds.RECORD_PAKET_PHOENIX, CreativeTabs.MISC);
+    public static final Item TELKOM_INDONESIA_DISC = new ItemRecordBase("telkom_indonesia_disc", ModSounds.RECORD_PAKET_PHOENIX, CreativeTabs.MISC);
 }
