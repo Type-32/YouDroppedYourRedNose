@@ -1,10 +1,8 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.items;
 
-import cn.crtlprototypestudios.youdroppedyourrednose.items.discs.KobeDisc;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemRecordBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.sounds.ModSounds;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.SoundHandler;
-import cn.crtlprototypestudios.youdroppedyourrednose.items.discs.RickRollDisc;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
