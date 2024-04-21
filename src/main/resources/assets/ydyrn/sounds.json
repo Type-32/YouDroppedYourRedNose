@@ -1,0 +1,12 @@
+{
+  "surprise_disc_music": {
+    "category": "disc",
+    "subtitle": "ydyrn.disc.rickroll",
+    "sounds": [{"name": "ydyrn:discs/rickroll", "stream": true}]
+  },
+  "mamba_disc_music": {
+    "category": "ambient",
+    "subtitle": "ydyrn.ambient.seeyouagain",
+    "sounds": [{"name": "ydyrn:ambient/seeyouagain", "stream": true}]
+  }
+}
