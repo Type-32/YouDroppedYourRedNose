@@ -13,6 +13,7 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(tabs);
+        setMaxStackSize(1);
 
         ModItems.ITEMS.add(this);
     }
