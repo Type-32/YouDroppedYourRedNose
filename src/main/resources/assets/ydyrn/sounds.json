@@ -33,5 +33,10 @@
     "category": "disc",
     "subtitle": "ydyrn.sounds.disc.baby_bus",
     "sounds": [{"name": "ydyrn:discs/baby_bus", "stream": true}]
+  },
+  "item_equip_joker": {
+    "category": "player",
+    "subtitle": "ydyrn.sounds.player.item_equip_joker",
+    "sounds": [{"name": "ydyrn:player/joker", "stream": true}]
   }
 }

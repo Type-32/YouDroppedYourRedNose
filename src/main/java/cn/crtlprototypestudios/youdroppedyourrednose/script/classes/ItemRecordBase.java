@@ -22,4 +22,8 @@ public class ItemRecordBase extends ItemRecord implements IHasModel {
 
         ModItems.ITEMS.add(this);
     }
+
+    public ItemRecordBase(String name, SoundEvent soundEvent) {
+        this(name, soundEvent, CreativeTabs.MISC);
+    }
 }

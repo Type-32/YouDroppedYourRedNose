@@ -1,3 +1,4 @@
+# Records
 item.surprise_disc.name=Surprise Disc
 item.record.surprise_disc.desc=Astley, Rick
 
@@ -18,3 +19,7 @@ item.record.mdm_disc.desc=Ma Dong Mei - TØm
 
 item.telkom_indonesia_disc.name=Surprise Disc
 item.record.telkom_indonesia_disc.desc=Paket Phoenix - TØm
+
+# Items
+item.joker_mask.name=Joker Mask
+item.joker_mask.desc=Like looking into a mirror
