@@ -31,17 +31,17 @@ public class ItemArmorCustomModelBase extends ItemArmorBase implements IHasModel
             if(itemStack.getItem() instanceof ItemArmor)
             {
 //                ModelCustomArmour model = new ModelCustomArmour();
-//                TODO Need full Impl.
-
-                model.bipedHead.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-
-                model.isChild = _default.isChild;
-                model.isRiding = _default.isRiding;
-                model.isSneak = _default.isSneak;
-                model.rightArmPose = _default.rightArmPose;
-                model.leftArmPose = _default.leftArmPose;
-
-                return model;
+//                TODO Use OBJ Model Loader as Impl. solution
+//
+//                model.bipedHead.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+//
+//                model.isChild = _default.isChild;
+//                model.isRiding = _default.isRiding;
+//                model.isSneak = _default.isSneak;
+//                model.rightArmPose = _default.rightArmPose;
+//                model.leftArmPose = _default.leftArmPose;
+//
+//                return model;
             }
         }
 
