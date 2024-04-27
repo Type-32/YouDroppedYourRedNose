@@ -1,6 +1,6 @@
-package cn.crtlprototypestudios.youdroppedyourrednose.custom;
+package cn.crtlprototypestudios.youdroppedyourrednose.content;
 
-import cn.crtlprototypestudios.youdroppedyourrednose.custom.armor.JokerMask;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.armor.JokerMask;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemRecordBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.sounds.ModSounds;
@@ -17,7 +17,7 @@ public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<Item>();
 
     // Materials
-    public static final ItemArmor.ArmorMaterial ARMOR_MATERIAL_JOKER = EnumHelper.addArmorMaterial("armor_material_joker", Reference.MODID + ":joker_material", 15, new int[]{2, 5, 6, 2}, 9, ModSounds.ITEM_ARMOR_EQUIP_JOKER, 0.0F);
+    public static final ItemArmor.ArmorMaterial ARMOR_MATERIAL_JOKER = EnumHelper.addArmorMaterial("armor_material_joker", Reference.MODID + ":joker_material", 6, new int[]{2, 5, 6, 2}, 9, ModSounds.ITEM_ARMOR_EQUIP_JOKER, 0.0F);
 
     // Discs
     public static final ItemRecordBase RICK_ROLL_DISC = new ItemRecordBase("surprise_disc", ModSounds.RECORD_RICKROLL);

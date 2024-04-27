@@ -1,6 +1,6 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.util.handlers;
 
-import cn.crtlprototypestudios.youdroppedyourrednose.custom.ModItems;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModItems;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.interfaces.IHasModel;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
