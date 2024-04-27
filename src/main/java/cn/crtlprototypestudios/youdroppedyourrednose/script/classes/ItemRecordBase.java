@@ -1,7 +1,7 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.script.classes;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.Main;
-import cn.crtlprototypestudios.youdroppedyourrednose.content.ModItems;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.interfaces.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemRecord;
@@ -20,7 +20,7 @@ public class ItemRecordBase extends ItemRecord implements IHasModel {
         setCreativeTab(tabs);
         setMaxStackSize(1);
 
-        ModItems.ITEMS.add(this);
+        ModContent.ITEMS.add(this);
     }
 
     public ItemRecordBase(String name, SoundEvent soundEvent) {

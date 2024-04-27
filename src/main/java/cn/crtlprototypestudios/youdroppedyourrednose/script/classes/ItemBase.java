@@ -1,7 +1,7 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.script.classes;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.Main;
-import cn.crtlprototypestudios.youdroppedyourrednose.content.ModItems;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.interfaces.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -17,6 +17,6 @@ public class ItemBase extends Item implements IHasModel {
         setRegistryName(name);
         setCreativeTab(tabs);
 
-        ModItems.ITEMS.add(this);
+        ModContent.ITEMS.add(this);
     }
 }

@@ -1,7 +1,10 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content;
 
-import cn.crtlprototypestudios.youdroppedyourrednose.content.armor.JokerMask;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.armor.JokerMaskItem;
+import cn.crtlprototypestudios.youdroppedyourrednose.render.models.armor.JokerMaskModel;
+import cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.JokerMaskRenderer;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorBase;
+import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorGeckoBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemRecordBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.sounds.ModSounds;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.Reference;
@@ -9,12 +12,13 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.common.util.EnumHelper;
+import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class ModItems {
-    public static final List<Item> ITEMS = new ArrayList<Item>();
+public class ModContent {
+    public static final List<Item> ITEMS = new ArrayList<>();
+    public static final Map<Class<? extends ItemArmor>, GeoArmorRenderer> ARMOR_RENDERERS = new HashMap<>();
 
     // Materials
     public static final ItemArmor.ArmorMaterial ARMOR_MATERIAL_JOKER = EnumHelper.addArmorMaterial("armor_material_joker", Reference.MODID + ":joker_material", 6, new int[]{2, 5, 6, 2}, 9, ModSounds.ITEM_ARMOR_EQUIP_JOKER, 0.0F);
@@ -29,5 +33,11 @@ public class ModItems {
     public static final ItemRecordBase TELKOM_INDONESIA_DISC = new ItemRecordBase("telkom_indonesia_disc", ModSounds.RECORD_PAKET_PHOENIX);
 
     // Armor
-    public static final ItemArmorBase JOKER_MASK = new JokerMask("joker_mask", ARMOR_MATERIAL_JOKER, 1, EntityEquipmentSlot.HEAD);
+    public static final JokerMaskItem JOKER_MASK = new JokerMaskItem("joker_mask", ARMOR_MATERIAL_JOKER, 1, EntityEquipmentSlot.HEAD);
+
+
+    // Renderers
+
+    // Armor Renderers
+    public static final JokerMaskRenderer JOKER_MASK_RENDERER = new JokerMaskRenderer();
 }
