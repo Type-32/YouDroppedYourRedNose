@@ -7,8 +7,11 @@ import net.minecraft.item.ItemArmor;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
@@ -27,12 +30,15 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onRenderersRegister(ModelRegistryEvent event) {
+        // Register Armor Renderers
         Class[] armorRenderersKeys = ModContent.ARMOR_RENDERERS.keySet().toArray(new Class[0]);
 
         for(int i = 0; i < ModContent.ARMOR_RENDERERS.size(); i++){
             GeoArmorRenderer.registerArmorRenderer(armorRenderersKeys[i], ModContent.ARMOR_RENDERERS.get(armorRenderersKeys[i]));
         }
+    }
 
-        // TODO Find better impl., check if errors
+    public static void preInitRegistries(FMLPreInitializationEvent event){
+        EntityHandler.registerAllEntities();
     }
 }

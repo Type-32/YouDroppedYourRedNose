@@ -1,4 +1,4 @@
-package cn.crtlprototypestudios.youdroppedyourrednose.content.sounds;
+package cn.crtlprototypestudios.youdroppedyourrednose.content;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.SoundHandler;
 import net.minecraft.util.SoundEvent;

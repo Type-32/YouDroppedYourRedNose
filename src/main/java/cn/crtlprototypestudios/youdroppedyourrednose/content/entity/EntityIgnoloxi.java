@@ -1,27 +1,46 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content.entity;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIFollowPlayer;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIHandoutItem;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIWandering;
-import cn.crtlprototypestudios.youdroppedyourrednose.content.loot_tables.ModLootTables;
-import cn.crtlprototypestudios.youdroppedyourrednose.content.sounds.ModSounds;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModLootTables;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModSounds;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class EntityIgnoloxi extends EntityCreature {
+public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
+
+    public static final String ENTITY_REGISTRY_NAME = "ignoloxi";
+    public static final int ENTITY_REGISTRY_ID = 120;
+
+    protected static final AnimationBuilder IDLE_1_ANIM = new AnimationBuilder().addAnimation("state.idle_1", true);
+    protected static final AnimationBuilder IDLE_2_ANIM = new AnimationBuilder().addAnimation("state.idle_2", true);
+    protected static final AnimationBuilder WALK_ANIM = new AnimationBuilder().addAnimation("state.walking", true);
+    protected static final AnimationBuilder SPRINT_ANIM = new AnimationBuilder().addAnimation("state.sprinting", true);
+    protected static final AnimationBuilder HANDOUT_START_ANIM = new AnimationBuilder().addAnimation("state.handout", true);
+    protected static final AnimationBuilder HANDOUT_IDLE_ANIM = new AnimationBuilder().addAnimation("state.handout_idle", true);
+    protected static final AnimationBuilder HANDOUT_END_ANIM = new AnimationBuilder().addAnimation("state.handout_end", true);
+    protected static final AnimationBuilder HANDOUT_TAKEN_ANIM = new AnimationBuilder().addAnimation("state.handout_taken", true);
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     public static final int FOLLOW_DURATION_MIN = 20 * 20; // 20 seconds
     public static final int FOLLOW_DURATION_MAX = 60 * 20; // 1 minute
@@ -36,10 +55,14 @@ public class EntityIgnoloxi extends EntityCreature {
     private int handoutDuration;
     private int wanderingDuration;
     private ItemStack handoutItem;
+    private final Random rand = new Random();
 
     public EntityIgnoloxi(World worldIn) {
+        // Make sure this class has no usages; The entity'll be initialized not by creating a physical object in the ModContent class, but via Implicit Registry in the EntityHandler class
         super(worldIn);
-        ForgeRegistries.ENTITIES.register(new EntityEntry(this.getClass(), "ignoloxi"));
+        ModContent.ENTITIES.add(this);
+        this.setCustomNameTag("Ignoloxi");
+        this.setAlwaysRenderNameTag(true);
     }
 
     @Override
@@ -99,6 +122,48 @@ public class EntityIgnoloxi extends EntityCreature {
         return ModSounds.ENTITY_IGNOLOXI_DEATH;
     }
 
+    @Override
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        if (!handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty()) {
+            player.setHeldItem(hand, handoutItem);
+            handoutItem = ItemStack.EMPTY;
+            handoutDuration = 0;
+            wanderingDuration = WANDERING_DURATION;
+            return true;
+        }
+        return super.processInteract(player, hand);
+    }
+
+    protected <E extends EntityIgnoloxi> PlayState stateController(final AnimationEvent<E> event) {
+        if(rand.nextBoolean())
+            event.getController().setAnimation(IDLE_1_ANIM);
+        else
+            event.getController().setAnimation(IDLE_2_ANIM);
+
+        if (handoutDuration > 0) {
+            event.getController().setAnimation(HANDOUT_IDLE_ANIM);
+        } else if (this.isSprinting()){
+            event.getController().setAnimation(SPRINT_ANIM);
+        } else if (event.isMoving()){
+            event.getController().setAnimation(WALK_ANIM);
+        }
+
+        return PlayState.CONTINUE;
+//        return PlayState.STOP;
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController<>(this, "ignoloxi", 5, this::stateController));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
+    }
+
+
+    // Getters and Setters
     public EntityPlayer getTargetPlayer() {
         return targetPlayer;
     }
@@ -137,17 +202,5 @@ public class EntityIgnoloxi extends EntityCreature {
 
     public void setHandoutItem(ItemStack handoutItem) {
         this.handoutItem = handoutItem;
-    }
-
-    @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        if (!handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty()) {
-            player.setHeldItem(hand, handoutItem);
-            handoutItem = ItemStack.EMPTY;
-            handoutDuration = 0;
-            wanderingDuration = WANDERING_DURATION;
-            return true;
-        }
-        return super.processInteract(player, hand);
     }
 }

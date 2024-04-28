@@ -2,24 +2,11 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ydyrn:loose_ass_disc",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "ydyrn:kobe_disc",
+          "name": "ydyrn:numb_disc",
           "weight": 1,
           "functions": [
             {
@@ -30,7 +17,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ydyrn:suprise_disc",
+          "name": "ydyrn:telkom_indonesia_disc",
           "weight": 1,
           "functions": [
             {
@@ -41,8 +28,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ydyrn:water_cooler_plastic",
-          "weight": 30,
+          "name": "ydyrn:bbbus_disc",
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -52,8 +39,47 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 20,
+          "name": "ydyrn:mdm_disc",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",

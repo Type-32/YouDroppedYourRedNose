@@ -2,6 +2,7 @@ package cn.crtlprototypestudios.youdroppedyourrednose;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.proxy.CommonProxy;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.Reference;
+import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -25,6 +26,7 @@ public class Main
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
+        RegistryHandler.preInitRegistries(event);
 //        ModSounds.registerSounds();
     }
 
