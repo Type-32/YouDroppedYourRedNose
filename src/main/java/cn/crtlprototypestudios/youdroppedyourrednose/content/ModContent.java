@@ -5,9 +5,11 @@ import cn.crtlprototypestudios.youdroppedyourrednose.render.models.armor.JokerMa
 import cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.JokerMaskRenderer;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorGeckoBase;
+import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemRecordBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.sounds.ModSounds;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.Reference;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -31,6 +33,9 @@ public class ModContent {
     public static final ItemRecordBase BBBUS_DISC = new ItemRecordBase("bbbus_disc", ModSounds.RECORD_BABY_BUS);
     public static final ItemRecordBase MDM_DISC = new ItemRecordBase("mdm_disc", ModSounds.RECORD_MA_DONG_MEI);
     public static final ItemRecordBase TELKOM_INDONESIA_DISC = new ItemRecordBase("telkom_indonesia_disc", ModSounds.RECORD_PAKET_PHOENIX);
+
+    // Item
+    public static final ItemBase WATER_COOLER_PLASTIC = new ItemBase("water_cooler_plastic", CreativeTabs.MISC);
 
     // Armor
     public static final JokerMaskItem JOKER_MASK = new JokerMaskItem("joker_mask", ARMOR_MATERIAL_JOKER, 1, EntityEquipmentSlot.HEAD);
