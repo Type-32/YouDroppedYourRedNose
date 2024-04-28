@@ -1,5 +1,7 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.entity;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.Main;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.EntityIgnoloxi;
 import cn.crtlprototypestudios.youdroppedyourrednose.render.models.entity.IgnoloxiEntityModel;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -10,5 +12,7 @@ public class IgnoloxiEntityRenderer extends GeoEntityRenderer<EntityIgnoloxi> {
 
     public IgnoloxiEntityRenderer(RenderManager renderManager) {
         super(renderManager, new IgnoloxiEntityModel());
+        ModContent.ENTITY_RENDERERS.put(EntityIgnoloxi.class, this);
+        Main.logger.info("Registered Renderers");
     }
 }

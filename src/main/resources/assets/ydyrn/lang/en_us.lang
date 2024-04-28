@@ -23,3 +23,6 @@ item.record.telkom_indonesia_disc.desc=Paket Phoenix - TØm
 # Items
 item.joker_mask.name=Joker Mask
 item.water_cooler_plastic.name=Water Cooler Plastic
+
+# Entities
+entity.ignoloxi.name=Ignoloxi

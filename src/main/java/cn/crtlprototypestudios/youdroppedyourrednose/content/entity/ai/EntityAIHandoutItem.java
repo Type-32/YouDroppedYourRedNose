@@ -1,8 +1,12 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.content.ModLootTables;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.EntityIgnoloxi;
+import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.LootTableHandler;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTableList;
 
 import java.util.Random;
 
@@ -34,6 +38,7 @@ public class EntityAIHandoutItem extends EntityAIBase {
     @Override
     public void updateTask() {
         entity.setHandoutDuration(entity.getHandoutDuration()-1);
+        entity.generateHandoutItem();
         // TODO: Display handoutItem in entity's hand
     }
 

@@ -16,6 +16,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -25,6 +28,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
@@ -47,7 +51,7 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     public static final int HANDOUT_DURATION_MIN = 8 * 20; // 8 seconds
     public static final int HANDOUT_DURATION_MAX = 14 * 20; // 14 seconds
     public static final int WANDERING_DURATION = 60 * 20; // 1 minute
-    public static final double FOLLOW_SPEED = 1.0D;
+    public static final double FOLLOW_SPEED = 0.11D;
     public static final double FOLLOW_DISTANCE = 1.0D;
 
     private EntityPlayer targetPlayer;
@@ -92,7 +96,7 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.1D);
     }
 
     @Nullable
@@ -160,6 +164,15 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return factory;
+    }
+
+    public void generateHandoutItem() {
+        LootTable loottable = world.getLootTableManager().getLootTableFromLocation(ModLootTables.ENTITY_IGNOLOXI_HANDOUT);
+        LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer)world)).withLootedEntity(this);
+        List<ItemStack> loot = loottable.generateLootForPools(world.rand, lootcontext$builder.build());
+        if (!loot.isEmpty()) {
+            handoutItem = loot.get(0);
+        }
     }
 
 

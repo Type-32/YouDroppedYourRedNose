@@ -2,10 +2,11 @@
   "type": "minecraft:entity",
   "pools": [
     {
+      "name": "IgnoloxiHandoutMain",
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "ydyrn:numb_disc",
           "weight": 1,
           "functions": [
@@ -16,7 +17,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "ydyrn:telkom_indonesia_disc",
           "weight": 1,
           "functions": [
@@ -27,7 +28,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "ydyrn:bbbus_disc",
           "weight": 1,
           "functions": [
@@ -38,7 +39,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "ydyrn:mdm_disc",
           "weight": 1,
           "functions": [
@@ -49,7 +50,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "minecraft:carrot",
           "weight": 10,
           "functions": [
@@ -63,7 +64,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "minecraft:gunpowder",
           "weight": 10,
           "functions": [
@@ -77,7 +78,7 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "item",
           "name": "minecraft:iron_nugget",
           "weight": 10,
           "functions": [

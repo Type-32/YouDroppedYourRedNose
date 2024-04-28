@@ -1,7 +1,13 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.util.handlers;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.Main;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.EntityIgnoloxi;
+import cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.entity.IgnoloxiEntityRenderer;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.interfaces.IHasModel;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -10,14 +16,21 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoReplacedEntityRenderer;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import java.util.logging.Logger;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
+
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(ModContent.ITEMS.toArray(new Item[0]));
+        Main.logger.info(String.format("Registered %s Item(s)", ModContent.ITEMS.size()));
     }
 
     @SubscribeEvent
@@ -26,6 +39,7 @@ public class RegistryHandler {
             if(item instanceof IHasModel)
                 ((IHasModel) item).registerModel();
         }
+        Main.logger.info(String.format("Registered %s Model(s)", ModContent.ITEMS.size()));
     }
 
     @SubscribeEvent
@@ -36,9 +50,16 @@ public class RegistryHandler {
         for(int i = 0; i < ModContent.ARMOR_RENDERERS.size(); i++){
             GeoArmorRenderer.registerArmorRenderer(armorRenderersKeys[i], ModContent.ARMOR_RENDERERS.get(armorRenderersKeys[i]));
         }
+        Main.logger.info("Registered Renderers");
+//        GeoReplacedEntityRenderer.registerReplacedEntity(EntityIgnoloxi.class, new IgnoloxiEntityRenderer(Minecraft.getMinecraft().getRenderManager()));
     }
 
     public static void preInitRegistries(FMLPreInitializationEvent event){
+
+    }
+
+    public static void initRegistries(FMLInitializationEvent event){
         EntityHandler.registerAllEntities();
+        Main.logger.info("Registered Entities");
     }
 }

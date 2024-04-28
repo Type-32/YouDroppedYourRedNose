@@ -14,7 +14,7 @@ import software.bernie.geckolib3.GeckoLib;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main
 {
-    private static Logger logger;
+    public static Logger logger;
 
     @Mod.Instance
     public static Main instance;
@@ -37,5 +37,6 @@ public class Main
         logger.info("[{}] Initialization", Reference.NAME);
 
         GeckoLib.initialize();
+        RegistryHandler.initRegistries(event);
     }
 }
