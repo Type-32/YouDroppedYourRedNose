@@ -3,12 +3,23 @@ package cn.crtlprototypestudios.youdroppedyourrednose.content.entity;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIFollowPlayer;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIHandoutItem;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIWandering;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.loot_tables.ModLootTables;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.sounds.ModSounds;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import javax.annotation.Nullable;
 
 public class EntityIgnoloxi extends EntityCreature {
 
@@ -28,6 +39,7 @@ public class EntityIgnoloxi extends EntityCreature {
 
     public EntityIgnoloxi(World worldIn) {
         super(worldIn);
+        ForgeRegistries.ENTITIES.register(new EntityEntry(this.getClass(), "ignoloxi"));
     }
 
     @Override
@@ -40,6 +52,51 @@ public class EntityIgnoloxi extends EntityCreature {
         this.tasks.addTask(3, new EntityAIHandoutItem(this));
         this.tasks.addTask(4, new EntityAIWandering(this));
         this.tasks.addTask(5, new EntityAIFollowPlayer(this));
+    }
+
+    @Override
+    public float getEyeHeight() {
+        return 1.62F - 0.08F;
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable() {
+        return ModLootTables.ENTITY_IGNOLOXI;
+    }
+
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        // TODO record sound for the entity in the resources folder
+        return ModSounds.ENTITY_IGNOLOXI_IDLE;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        // TODO record sound for the entity in the resources folder
+        return ModSounds.ENTITY_IGNOLOXI_HURT;
+    }
+
+    @Nullable
+    protected SoundEvent getHandoutSound() {
+        // TODO record sound for the entity in the resources folder
+        return ModSounds.ENTITY_IGNOLOXI_HANDOUT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        // TODO record sound for the entity in the resources folder
+        return ModSounds.ENTITY_IGNOLOXI_DEATH;
     }
 
     public EntityPlayer getTargetPlayer() {

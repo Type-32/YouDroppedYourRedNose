@@ -1,18 +1,16 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.content.armor.JokerMaskItem;
-import cn.crtlprototypestudios.youdroppedyourrednose.render.models.armor.JokerMaskModel;
 import cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.JokerMaskRenderer;
-import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorBase;
-import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemArmorGeckoBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemBase;
 import cn.crtlprototypestudios.youdroppedyourrednose.script.classes.ItemRecordBase;
-import cn.crtlprototypestudios.youdroppedyourrednose.sounds.ModSounds;
+import cn.crtlprototypestudios.youdroppedyourrednose.content.sounds.ModSounds;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
@@ -20,6 +18,7 @@ import java.util.*;
 
 public class ModContent {
     public static final List<Item> ITEMS = new ArrayList<>();
+    public static final Set<ResourceLocation> LOOT_TABLES = new HashSet<>();
     public static final Map<Class<? extends ItemArmor>, GeoArmorRenderer> ARMOR_RENDERERS = new HashMap<>();
 
     // Materials
@@ -42,7 +41,6 @@ public class ModContent {
 
 
     // Renderers
-
     // Armor Renderers
     public static final JokerMaskRenderer JOKER_MASK_RENDERER = new JokerMaskRenderer();
 }

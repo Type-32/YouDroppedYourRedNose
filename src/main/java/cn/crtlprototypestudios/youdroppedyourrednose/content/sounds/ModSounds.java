@@ -1,4 +1,4 @@
-package cn.crtlprototypestudios.youdroppedyourrednose.sounds;
+package cn.crtlprototypestudios.youdroppedyourrednose.content.sounds;
 
 import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.SoundHandler;
 import net.minecraft.util.SoundEvent;
@@ -16,4 +16,11 @@ public class ModSounds {
 
     // Equip Armor Sounds
     public static final SoundEvent ITEM_ARMOR_EQUIP_JOKER = SoundHandler.registerSound("item_equip_joker");
+
+    // Entity Sounds
+    // Ignoloxi
+    public static final SoundEvent ENTITY_IGNOLOXI_IDLE = SoundHandler.registerSound("entity_ignoloxi_idle");
+    public static final SoundEvent ENTITY_IGNOLOXI_HANDOUT = SoundHandler.registerSound("entity_ignoloxi_handout");
+    public static final SoundEvent ENTITY_IGNOLOXI_HURT = SoundHandler.registerSound("entity_ignoloxi_hurt");
+    public static final SoundEvent ENTITY_IGNOLOXI_DEATH = SoundHandler.registerSound("entity_ignoloxi_death");
 }

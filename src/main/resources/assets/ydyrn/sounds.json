@@ -38,5 +38,25 @@
     "category": "player",
     "subtitle": "ydyrn.sounds.player.item_equip_joker",
     "sounds": [{"name": "ydyrn:player/joker", "stream": true}]
+  },
+  "entity_ignoloxi_idle": {
+    "category": "entity",
+    "subtitle": "ydyrn.sounds.entity.entity_ignoloxi_idle",
+    "sounds": [{"name": "ydyrn:entity/ignoloxi/idle", "stream": true}]
+  },
+  "entity_ignoloxi_handout": {
+    "category": "entity",
+    "subtitle": "ydyrn.sounds.entity.entity_ignoloxi_handout",
+    "sounds": [{"name": "ydyrn:entity/ignoloxi/handout", "stream": true}]
+  },
+  "entity_ignoloxi_hurt": {
+    "category": "entity",
+    "subtitle": "ydyrn.sounds.entity.entity_ignoloxi_hurt",
+    "sounds": [{"name": "ydyrn:entity/ignoloxi/hurt", "stream": true}]
+  },
+  "entity_ignoloxi_death": {
+    "category": "entity",
+    "subtitle": "ydyrn.sounds.entity.entity_ignoloxi_death",
+    "sounds": [{"name": "ydyrn:entity/ignoloxi/death", "stream": true}]
   }
 }
