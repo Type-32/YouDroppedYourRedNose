@@ -150,8 +150,6 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     }
 
     protected <E extends EntityIgnoloxi> PlayState stateController(final AnimationEvent<E> event) {
-        event.getController().setAnimation(IDLE_1_ANIM);
-
         if (handoutDuration > 0) {
             event.getController().setAnimation(HANDOUT_IDLE_ANIM);
         } else if (targetPlayer != null && targetPlayer.isSprinting()){
@@ -159,6 +157,8 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
         } else if (event.isMoving() || (targetPlayer != null && targetPlayer.velocityChanged)){
             event.getController().setAnimation(WALK_ANIM);
 //            event.getController().getBoneAnimationQueues().
+        } else {
+            event.getController().setAnimation(IDLE_1_ANIM);
         }
 
 
