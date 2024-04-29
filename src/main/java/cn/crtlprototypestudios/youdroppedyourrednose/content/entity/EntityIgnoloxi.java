@@ -152,9 +152,9 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     protected <E extends EntityIgnoloxi> PlayState stateController(final AnimationEvent<E> event) {
         if (handoutDuration > 0) {
             event.getController().setAnimation(HANDOUT_IDLE_ANIM);
-        } else if (targetPlayer != null && targetPlayer.isSprinting()){
+        } else if (event.isMoving() && (targetPlayer != null && targetPlayer.isSprinting())){
             event.getController().setAnimation(SPRINT_ANIM);
-        } else if (event.isMoving() || (targetPlayer != null && targetPlayer.velocityChanged)){
+        } else if (event.isMoving() && (targetPlayer != null && targetPlayer.velocityChanged && !targetPlayer.isSprinting())){
             event.getController().setAnimation(WALK_ANIM);
 //            event.getController().getBoneAnimationQueues().
         } else {
