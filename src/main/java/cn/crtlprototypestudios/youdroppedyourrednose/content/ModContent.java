@@ -24,7 +24,7 @@ public class ModContent {
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final List<Entity> ENTITIES = new ArrayList<>();
     public static final Set<ResourceLocation> LOOT_TABLES = new HashSet<>();
-    public static final Map<Class<? extends EntityCreature>, GeoEntityRenderer> ENTITY_RENDERERS = new HashMap<>();
+    public static final Map<Class<? extends Entity>, GeoEntityRenderer> ENTITY_RENDERERS = new HashMap<>();
     public static final Map<Class<? extends ItemArmor>, GeoArmorRenderer> ARMOR_RENDERERS = new HashMap<>();
 
 

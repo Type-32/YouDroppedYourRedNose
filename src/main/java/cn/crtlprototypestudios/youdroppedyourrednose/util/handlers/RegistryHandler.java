@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -46,12 +47,17 @@ public class RegistryHandler {
     public static void onRenderersRegister(ModelRegistryEvent event) {
         // Register Armor Renderers
         Class[] armorRenderersKeys = ModContent.ARMOR_RENDERERS.keySet().toArray(new Class[0]);
-
-        for(int i = 0; i < ModContent.ARMOR_RENDERERS.size(); i++){
+        for(int i = 0; i < ModContent.ARMOR_RENDERERS.size(); i++)
             GeoArmorRenderer.registerArmorRenderer(armorRenderersKeys[i], ModContent.ARMOR_RENDERERS.get(armorRenderersKeys[i]));
-        }
-        Main.logger.info("Registered Renderers");
-//        GeoReplacedEntityRenderer.registerReplacedEntity(EntityIgnoloxi.class, new IgnoloxiEntityRenderer(Minecraft.getMinecraft().getRenderManager()));
+
+        Main.logger.info(String.format("Registered %s Armor Renderers", ModContent.ARMOR_RENDERERS.keySet().size()));
+
+        // Register Entity Renderers
+        Class[] entityRenderersKeys = ModContent.ENTITY_RENDERERS.keySet().toArray(new Class[0]);
+        for(int i = 0; i < ModContent.ENTITY_RENDERERS.size(); i++)
+            RenderingRegistry.registerEntityRenderingHandler(entityRenderersKeys[i], ModContent.ENTITY_RENDERERS.get(entityRenderersKeys[i]));
+
+        Main.logger.info(String.format("Registered %s Entity Renderers", ModContent.ENTITY_RENDERERS.keySet().size()));
     }
 
     public static void preInitRegistries(FMLPreInitializationEvent event){

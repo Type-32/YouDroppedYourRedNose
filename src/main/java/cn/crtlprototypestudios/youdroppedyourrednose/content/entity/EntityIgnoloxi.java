@@ -51,8 +51,8 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     public static final int HANDOUT_DURATION_MIN = 8 * 20; // 8 seconds
     public static final int HANDOUT_DURATION_MAX = 14 * 20; // 14 seconds
     public static final int WANDERING_DURATION = 60 * 20; // 1 minute
-    public static final double FOLLOW_SPEED = 0.11D;
-    public static final double FOLLOW_DISTANCE = 1.0D;
+    public static final double FOLLOW_SPEED = 0.15D;
+    public static final double FOLLOW_DISTANCE = 3.0D;
 
     private EntityPlayer targetPlayer;
     private int followDuration;
