@@ -1,5 +1,6 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content.entity;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.Main;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.ModContent;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIFollowPlayer;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIHandoutItem;
@@ -44,22 +45,22 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     public static final String ENTITY_REGISTRY_NAME = "ignoloxi";
     public static final int ENTITY_REGISTRY_ID = 120;
 
-    protected static final AnimationBuilder IDLE_1_ANIM = new AnimationBuilder().addAnimation("state.idle_1", true);
-    protected static final AnimationBuilder IDLE_2_ANIM = new AnimationBuilder().addAnimation("state.idle_2", true);
-    protected static final AnimationBuilder WALK_ANIM = new AnimationBuilder().addAnimation("state.walking", true);
+    protected static final AnimationBuilder IDLE_1_ANIM = new AnimationBuilder().loop("state.idle_1");
+    protected static final AnimationBuilder IDLE_2_ANIM = new AnimationBuilder().loop("state.idle_2");
+    protected static final AnimationBuilder WALK_ANIM = new AnimationBuilder().loop("state.walking");
     protected static final AnimationBuilder SPRINT_ANIM = new AnimationBuilder().addAnimation("state.sprinting", true);
     protected static final AnimationBuilder HANDOUT_START_ANIM = new AnimationBuilder().addAnimation("state.handout", true);
     protected static final AnimationBuilder HANDOUT_IDLE_ANIM = new AnimationBuilder().addAnimation("state.handout_idle", true);
     protected static final AnimationBuilder HANDOUT_END_ANIM = new AnimationBuilder().addAnimation("state.handout_end", true);
     protected static final AnimationBuilder HANDOUT_TAKEN_ANIM = new AnimationBuilder().addAnimation("state.handout_taken", true);
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory;
 
     public static final int FOLLOW_DURATION_MIN = 20 * 20; // 20 seconds
     public static final int FOLLOW_DURATION_MAX = 60 * 20; // 1 minute
     public static final int HANDOUT_DURATION_MIN = 8 * 20; // 8 seconds
     public static final int HANDOUT_DURATION_MAX = 14 * 20; // 14 seconds
     public static final int WANDERING_DURATION = 60 * 20; // 1 minute
-    public static final double FOLLOW_SPEED = 0.15D;
+    public static final double FOLLOW_SPEED = 1.0D;
     public static final double FOLLOW_DISTANCE = 3.0D;
 
     private EntityPlayer targetPlayer;
@@ -75,6 +76,8 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
         ModContent.ENTITIES.add(this);
         this.setCustomNameTag("Ignoloxi");
         this.setAlwaysRenderNameTag(true);
+        handoutItem = ItemStack.EMPTY;
+        factory = new AnimationFactory(this);
     }
 
     @Override
@@ -136,7 +139,7 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        if (!handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty()) {
+        if (handoutItem != null && !handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty()) {
             player.setHeldItem(hand, handoutItem);
             handoutItem = ItemStack.EMPTY;
             handoutDuration = 0;
@@ -147,27 +150,27 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     }
 
     protected <E extends EntityIgnoloxi> PlayState stateController(final AnimationEvent<E> event) {
-        if(rand.nextBoolean())
-            event.getController().setAnimation(IDLE_1_ANIM);
-        else
-            event.getController().setAnimation(IDLE_2_ANIM);
+        event.getController().setAnimation(IDLE_1_ANIM);
 
         if (handoutDuration > 0) {
             event.getController().setAnimation(HANDOUT_IDLE_ANIM);
-        } else if (this.isSprinting()){
+        } else if (targetPlayer != null && targetPlayer.isSprinting()){
             event.getController().setAnimation(SPRINT_ANIM);
-        } else if (event.isMoving()){
+        } else if (event.isMoving() || (targetPlayer != null && targetPlayer.velocityChanged)){
             event.getController().setAnimation(WALK_ANIM);
 //            event.getController().getBoneAnimationQueues().
         }
 
+
+        Main.logger.info(event.getController().getCurrentAnimation() == null ? "null" : event.getController().getCurrentAnimation().animationName);
+        Main.logger.info(event.getController().getAnimationState() == null ? "null" : event.getController().getAnimationState());
         return PlayState.CONTINUE;
 //        return PlayState.STOP;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "ignoloxi", 5, this::stateController));
+        animationData.addAnimationController(new AnimationController<EntityIgnoloxi>(this, "ignoloxi", 5, this::stateController));
     }
 
     @Override

@@ -56,7 +56,7 @@ public class IgnoloxiEntityRenderer extends GeoEntityRenderer<EntityIgnoloxi> {
     public void renderEarly(EntityIgnoloxi animatable, float ticks, float red, float green, float blue, float partialTicks) {
         super.renderEarly(animatable, ticks, red, green, blue, partialTicks);
         ItemStack itemStack = animatable.getHandoutItem();
-        if (!itemStack.isEmpty()) {
+        if (itemStack != null && !itemStack.isEmpty()) {
             renderHeldItem(animatable, itemStack);
         }
     }

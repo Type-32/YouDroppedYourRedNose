@@ -51,5 +51,5 @@ public class ModContent {
     public static final JokerMaskItemRenderer JOKER_MASK_RENDERER = new JokerMaskItemRenderer();
 
     // Entity Renderers
-    public static final IgnoloxiEntityRenderer IGNOLOXI_ENTITY_RENDERER = new IgnoloxiEntityRenderer(Minecraft.getMinecraft().getRenderManager());
+//    public static final IgnoloxiEntityRenderer IGNOLOXI_ENTITY_RENDERER = new IgnoloxiEntityRenderer(Minecraft.getMinecraft().getRenderManager());
 }

@@ -7,6 +7,7 @@ import cn.crtlprototypestudios.youdroppedyourrednose.render.renderers.entity.Ign
 import cn.crtlprototypestudios.youdroppedyourrednose.util.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -29,6 +30,7 @@ public class EntityHandler {
     public static void registerEntity(String name, Class<? extends Entity> entity, GeoEntityRenderer renderer, int id, int range, int color1, int color2, int updateTickFrequency, boolean sendsVelocityUpdates){
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, name), entity, name, id, Main.instance, range, updateTickFrequency, sendsVelocityUpdates, color1, color2);
 //        ModContent.ENTITIES.add();
+        RenderingRegistry.registerEntityRenderingHandler(entity, renderer);
         ModContent.ENTITY_RENDERERS.put(entity, renderer);
     }
 

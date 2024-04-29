@@ -53,15 +53,16 @@ public class RegistryHandler {
         Main.logger.info(String.format("Registered %s Armor Renderers", ModContent.ARMOR_RENDERERS.keySet().size()));
 
         // Register Entity Renderers
-        Class[] entityRenderersKeys = ModContent.ENTITY_RENDERERS.keySet().toArray(new Class[0]);
-        for(int i = 0; i < ModContent.ENTITY_RENDERERS.size(); i++)
-            RenderingRegistry.registerEntityRenderingHandler(entityRenderersKeys[i], ModContent.ENTITY_RENDERERS.get(entityRenderersKeys[i]));
-
-        Main.logger.info(String.format("Registered %s Entity Renderers", ModContent.ENTITY_RENDERERS.keySet().size()));
+//        Class[] entityRenderersKeys = ModContent.ENTITY_RENDERERS.keySet().toArray(new Class[0]);
+//        for(int i = 0; i < ModContent.ENTITY_RENDERERS.size(); i++)
+//            RenderingRegistry.registerEntityRenderingHandler(entityRenderersKeys[i], ModContent.ENTITY_RENDERERS.get(entityRenderersKeys[i]).newInstance());
+//
+//        Main.logger.info(String.format("Registered %s Entity Renderers", ModContent.ENTITY_RENDERERS.keySet().size()));
     }
 
     public static void preInitRegistries(FMLPreInitializationEvent event){
-
+//        EntityHandler.registerAllEntities();
+//        Main.logger.info("Registered Entities");
     }
 
     public static void initRegistries(FMLInitializationEvent event){

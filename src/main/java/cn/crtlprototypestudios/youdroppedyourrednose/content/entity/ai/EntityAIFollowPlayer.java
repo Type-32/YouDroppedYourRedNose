@@ -39,7 +39,7 @@ public class EntityAIFollowPlayer extends EntityAIBase {
     @Override
     public void updateTask() {
         if (entity.getTargetPlayer() != null) {
-            entity.getNavigator().tryMoveToEntityLiving(entity.getTargetPlayer(), entity.getTargetPlayer().isSneaking() ? EntityIgnoloxi.FOLLOW_SPEED / 2 : EntityIgnoloxi.FOLLOW_SPEED);
+            entity.getNavigator().tryMoveToEntityLiving(entity.getTargetPlayer(), entity.getTargetPlayer().isSprinting() ? EntityIgnoloxi.FOLLOW_SPEED * 2 : entity.getTargetPlayer().isSneaking() ? EntityIgnoloxi.FOLLOW_SPEED / 2 : EntityIgnoloxi.FOLLOW_SPEED);
             entity.getLookHelper().setLookPositionWithEntity(entity.getTargetPlayer(), 10.0F, entity.getVerticalFaceSpeed());
             entity.setFollowDuration(entity.getFollowDuration()-1);
         }
