@@ -6,6 +6,7 @@ import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIH
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai.EntityAIWandering;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.ModLootTables;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.ModSounds;
+import cn.crtlprototypestudios.youdroppedyourrednose.render.models.entity.IgnoloxiEntityModel;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -15,10 +16,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -26,8 +30,12 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.core.processor.IBone;
+import software.bernie.geckolib3.core.snapshot.BoneSnapshot;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Vector3f;
 import java.util.List;
 import java.util.Random;
 
@@ -150,6 +158,7 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
             event.getController().setAnimation(SPRINT_ANIM);
         } else if (event.isMoving()){
             event.getController().setAnimation(WALK_ANIM);
+//            event.getController().getBoneAnimationQueues().
         }
 
         return PlayState.CONTINUE;
@@ -173,6 +182,13 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
         if (!loot.isEmpty()) {
             handoutItem = loot.get(0);
         }
+    }
+
+    public Vec3d getItemPlaceholderPosition() throws Exception {
+        IgnoloxiEntityModel model = new IgnoloxiEntityModel();
+        IBone itemPlaceholderBone = model.getBone("placeholderItemStack");
+
+        return new Vec3d(itemPlaceholderBone.getPositionX(), itemPlaceholderBone.getPositionY(), itemPlaceholderBone.getPositionZ());
     }
 
 

@@ -26,8 +26,7 @@ public class EntityAIHandoutItem extends EntityAIBase {
     @Override
     public void startExecuting() {
         entity.setHandoutDuration(rand.nextInt(EntityIgnoloxi.HANDOUT_DURATION_MAX - EntityIgnoloxi.HANDOUT_DURATION_MIN + 1) + EntityIgnoloxi.HANDOUT_DURATION_MIN);
-        // TODO: Play geckomodel animation
-        // TODO: Set handoutItem to a random item
+        entity.generateHandoutItem();
     }
 
     @Override
@@ -38,7 +37,6 @@ public class EntityAIHandoutItem extends EntityAIBase {
     @Override
     public void updateTask() {
         entity.setHandoutDuration(entity.getHandoutDuration()-1);
-        entity.generateHandoutItem();
         // TODO: Display handoutItem in entity's hand
     }
 
