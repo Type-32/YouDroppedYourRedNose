@@ -1,5 +1,6 @@
 package cn.crtlprototypestudios.youdroppedyourrednose.content.entity.ai;
 
+import cn.crtlprototypestudios.youdroppedyourrednose.Main;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.ModLootTables;
 import cn.crtlprototypestudios.youdroppedyourrednose.content.entity.EntityIgnoloxi;
 import cn.crtlprototypestudios.youdroppedyourrednose.util.handlers.LootTableHandler;
@@ -20,7 +21,9 @@ public class EntityAIHandoutItem extends EntityAIBase {
 
     @Override
     public boolean shouldExecute() {
-        return entity.getFollowDuration() <= 0 && entity.getHandoutDuration() == 0;
+        if(entity.getBehaviorState() != EntityIgnoloxi.BehaviorState.HANDOUT_ITEM) return false;
+
+        return entity.getFollowDuration() <= 0 && entity.getBehaviorState() == EntityIgnoloxi.BehaviorState.HANDOUT_ITEM && !entity.isWandering();
     }
 
     @Override
@@ -31,11 +34,17 @@ public class EntityAIHandoutItem extends EntityAIBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return entity.getHandoutDuration() > 0;
+        if (entity.getHandoutDuration() <= 0 && entity.getBehaviorState() == EntityIgnoloxi.BehaviorState.HANDOUT_ITEM) {
+            entity.setBehaviorState(EntityIgnoloxi.BehaviorState.WANDER);
+            return false;
+        }
+
+        return entity.getHandoutDuration() > 0 && entity.getBehaviorState() == EntityIgnoloxi.BehaviorState.HANDOUT_ITEM;
     }
 
     @Override
     public void updateTask() {
+        Main.logger.info("EntityAIHandoutItem Task is running");
         entity.setHandoutDuration(entity.getHandoutDuration()-1);
         // TODO: Display handoutItem in entity's hand
     }

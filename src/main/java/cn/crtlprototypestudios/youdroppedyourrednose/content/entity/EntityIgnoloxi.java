@@ -42,6 +42,21 @@ import java.util.Random;
 
 public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
 
+    public BehaviorState getBehaviorState() {
+        return behaviorState;
+    }
+
+    public void setBehaviorState(BehaviorState behaviorState) {
+        this.behaviorState = behaviorState;
+    }
+
+    public enum BehaviorState {
+        FOLLOW_PLAYER,
+        HANDOUT_ITEM,
+        WANDER,
+        IDLE
+    }
+
     public static final String ENTITY_REGISTRY_NAME = "ignoloxi";
     public static final int ENTITY_REGISTRY_ID = 120;
 
@@ -49,33 +64,33 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     protected static final AnimationBuilder IDLE_2_ANIM = new AnimationBuilder().loop("state.idle_2");
     protected static final AnimationBuilder WALK_ANIM = new AnimationBuilder().loop("state.walking");
     protected static final AnimationBuilder SPRINT_ANIM = new AnimationBuilder().addAnimation("state.sprinting", true);
-    protected static final AnimationBuilder HANDOUT_START_ANIM = new AnimationBuilder().addAnimation("state.handout", true);
+    protected static final AnimationBuilder HANDOUT_START_ANIM = new AnimationBuilder().playAndHold("state.handout");
     protected static final AnimationBuilder HANDOUT_IDLE_ANIM = new AnimationBuilder().addAnimation("state.handout_idle", true);
     protected static final AnimationBuilder HANDOUT_END_ANIM = new AnimationBuilder().addAnimation("state.handout_end", true);
     protected static final AnimationBuilder HANDOUT_TAKEN_ANIM = new AnimationBuilder().addAnimation("state.handout_taken", true);
     private final AnimationFactory factory;
 
-    public static final int FOLLOW_DURATION_MIN = 20 * 20; // 20 seconds
-    public static final int FOLLOW_DURATION_MAX = 60 * 20; // 1 minute
-    public static final int HANDOUT_DURATION_MIN = 8 * 20; // 8 seconds
-    public static final int HANDOUT_DURATION_MAX = 14 * 20; // 14 seconds
-    public static final int WANDERING_DURATION = 60 * 20; // 1 minute
-    public static final double FOLLOW_SPEED = 1.0D;
+    public static final int FOLLOW_DURATION_MIN = 20; // 20 seconds
+    public static final int FOLLOW_DURATION_MAX = 30; // 30 seconds
+    public static final int HANDOUT_DURATION_MIN = 14; // 8 seconds
+    public static final int HANDOUT_DURATION_MAX = 20; // 14 seconds
+    public static final int WANDERING_DURATION = 20; // 1 minute, debug 20 seconds
+    public static final double FOLLOW_SPEED = 1.5D;
     public static final double FOLLOW_DISTANCE = 3.0D;
 
+    private BehaviorState behaviorState = BehaviorState.FOLLOW_PLAYER;
     private EntityPlayer targetPlayer;
     private int followDuration;
     private int handoutDuration;
     private int wanderingDuration;
     private ItemStack handoutItem;
-    private final Random rand = new Random();
 
     public EntityIgnoloxi(World worldIn) {
         // Make sure this class has no usages; The entity'll be initialized not by creating a physical object in the ModContent class, but via Implicit Registry in the EntityHandler class
         super(worldIn);
         ModContent.ENTITIES.add(this);
-        this.setCustomNameTag("Ignoloxi");
-        this.setAlwaysRenderNameTag(true);
+//        this.setCustomNameTag("Ignoloxi");
+//        this.setAlwaysRenderNameTag(true);
         handoutItem = ItemStack.EMPTY;
         factory = new AnimationFactory(this);
     }
@@ -84,12 +99,12 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     protected void initEntityAI() {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 5.0F));
-        this.tasks.addTask(1, new EntityAIWanderAvoidWater(this, 0.6D));
-        this.tasks.addTask(2, new EntityAILookIdle(this));
-        this.tasks.addTask(3, new EntityAIHandoutItem(this));
+        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, (float)FOLLOW_DISTANCE));
+        this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 0.6D));
+        this.tasks.addTask(3, new EntityAILookIdle(this));
+        this.tasks.addTask(4, new EntityAIFollowPlayer(this));
+        this.tasks.addTask(5, new EntityAIHandoutItem(this));
         this.tasks.addTask(4, new EntityAIWandering(this));
-        this.tasks.addTask(5, new EntityAIFollowPlayer(this));
     }
 
     @Override
@@ -107,7 +122,7 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.1D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.15D);
     }
 
     @Nullable
@@ -139,34 +154,44 @@ public class EntityIgnoloxi extends EntityCreature implements IAnimatable {
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        if (handoutItem != null && !handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty()) {
+        if (handoutItem != null && !handoutItem.isEmpty() && player.getHeldItem(hand).isEmpty() && isHandingOut() && getBehaviorState() == BehaviorState.HANDOUT_ITEM) {
+            setHandoutDuration(0);
+            setFollowDuration(0);
             player.setHeldItem(hand, handoutItem);
             handoutItem = ItemStack.EMPTY;
-            handoutDuration = 0;
-            wanderingDuration = WANDERING_DURATION;
+            setWanderingDuration(WANDERING_DURATION);
+            setBehaviorState(BehaviorState.WANDER);
             return true;
         }
         return super.processInteract(player, hand);
     }
 
     protected <E extends EntityIgnoloxi> PlayState stateController(final AnimationEvent<E> event) {
-        if (handoutDuration > 0) {
-            event.getController().setAnimation(HANDOUT_IDLE_ANIM);
-        } else if (event.isMoving() && (targetPlayer != null && targetPlayer.isSprinting())){
+        if (event.getAnimatable().isHandingOut() || event.getAnimatable().getBehaviorState() == BehaviorState.HANDOUT_ITEM) {
+            event.getController().setAnimation(HANDOUT_START_ANIM);
+        } else if (event.isMoving() && event.getAnimatable().getTargetPlayer() != null && event.getAnimatable().getTargetPlayer().isSprinting()){
             event.getController().setAnimation(SPRINT_ANIM);
-        } else if (event.isMoving() && (targetPlayer != null && targetPlayer.velocityChanged && !targetPlayer.isSprinting())){
+        } else if (event.isMoving()){
             event.getController().setAnimation(WALK_ANIM);
-//            event.getController().getBoneAnimationQueues().
         } else {
             event.getController().setAnimation(IDLE_1_ANIM);
         }
 
-
-        Main.logger.info(event.getController().getCurrentAnimation() == null ? "null" : event.getController().getCurrentAnimation().animationName);
-        Main.logger.info(event.getController().getAnimationState() == null ? "null" : event.getController().getAnimationState());
         return PlayState.CONTINUE;
-//        return PlayState.STOP;
     }
+
+
+
+    @Override
+    protected void updateAITasks() {
+        super.updateAITasks();
+        Main.logger.info(String.format("Entity State: %s", behaviorState));
+        Main.logger.info(String.format("On AI Tasks Updated Context -- Player: %s; FD %s; HD: %s; WD: %s", getTargetPlayer() == null ? "null" : getTargetPlayer(), getFollowDuration(), getHandoutDuration(), getWanderingDuration()));
+    }
+
+    public boolean isFollowingPlayer() { return followDuration > 0 && targetPlayer != null; }
+    public boolean isWandering() { return wanderingDuration > 0; }
+    public boolean isHandingOut() { return handoutDuration > 0; }
 
     @Override
     public void registerControllers(AnimationData animationData) {
